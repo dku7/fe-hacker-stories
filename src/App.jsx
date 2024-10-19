@@ -1,55 +1,75 @@
-const list = [
-  {
-    title: "React",
-    url: "https://reactjs.org/",
-    author: "Jordan Walke",
-    num_comments: 3,
-    points: 4,
-    objectID: 0,
-  },
-  {
-    title: "Redux",
-    url: "https://redux.js.org/",
-    author: "Dan Abramov, Andrew Clark",
-    num_comments: 2,
-    points: 5,
-    objectID: 1,
-  },
-];
+const App = () => {
+  const stories = [
+    {
+      title: "React",
+      url: "https://reactjs.org/",
+      author: "Jordan Walke",
+      num_comments: 3,
+      points: 4,
+      objectID: 0,
+    },
+    {
+      title: "Redux",
+      url: "https://redux.js.org/",
+      author: "Dan Abramov, Andrew Clark",
+      num_comments: 2,
+      points: 5,
+      objectID: 1,
+    },
+  ];
 
-const App = () => (
-  <div>
-    <h1>Hacker Stories</h1>
-    <Search />
+  return (
+    <div>
+      <h1>Hacker Stories</h1>
 
-    <hr />
+      <Search />
 
-    <List />
-  </div>
-);
+      <hr />
+
+      <List list={stories} />
+    </div>
+  );
+};
 
 // this creates a new React component for the Search
-const Search = () => (
-  <div>
-    <label htmlFor="search">Search: </label>
-    <input id="search" type="text" />
-  </div>
-);
+const Search = () => {
+  const handleChange = (event) => {
+    console.log("synthetic event: ", event);
+    console.log("Value of target: ", event.target.value);
+  };
+
+  return (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input
+        id="search"
+        type="text"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
+    </div>
+  );
+};
 
 // this creates another component for the List
-const List = () => (
+const List = (props) => (
   <ul>
-    {list.map((item) => (
-      <li key={item.objectID}>
-        <span>
-          <a href={item.url}>{item.title}</a>
-        </span>
-        <span> by: {item.author}</span>
-        <span>, comments ({item.num_comments})</span>
-        <span>, points ({item.points})</span>
-      </li>
+    {props.list.map((item) => (
+      <Item key={item.objectID} item={item} />
     ))}
   </ul>
+);
+
+// make each item a component
+const Item = (props) => (
+  <li>
+    <span>
+      <a href={props.item.url}>{props.item.title}</a>
+    </span>
+    <span> by: {props.item.author}</span>
+    <span>, comments ({props.item.num_comments})</span>
+    <span>, points ({props.item.points})</span>
+  </li>
 );
 
 export default App;
