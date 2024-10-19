@@ -29,12 +29,24 @@ const App = () => (
 );
 
 // this creates a new React component for the Search
-const Search = () => (
-  <div>
-    <label htmlFor="search">Search: </label>
-    <input id="search" type="text" />
-  </div>
-);
+const Search = () => {
+  const handleChange = (event) => {
+    console.log("synthetic event: ", event);
+    console.log("Value of target: ", event.target.value);
+  };
+
+  return (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input
+        id="search"
+        type="text"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
+    </div>
+  );
+};
 
 // this creates another component for the List
 const List = () => (
