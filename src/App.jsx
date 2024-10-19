@@ -1,3 +1,5 @@
+import * as React from "react";
+
 const App = () => {
   const stories = [
     {
@@ -31,27 +33,23 @@ const App = () => {
   );
 };
 
-// this creates a new React component for the Search
 const Search = () => {
-  const handleChange = (event) => {
-    console.log("synthetic event: ", event);
-    console.log("Value of target: ", event.target.value);
-  };
+  const [searchTerm, setSearchTerm] = React.useState("");
+
+  const handleChange = (event) => setSearchTerm(event.target.value);
 
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input
-        id="search"
-        type="text"
-        onChange={handleChange}
-        onBlur={handleChange}
-      />
+      <input id="search" type="text" onChange={handleChange} />
+
+      <p>
+        Searching for <strong>{searchTerm}</strong>
+      </p>
     </div>
   );
 };
 
-// this creates another component for the List
 const List = (props) => (
   <ul>
     {props.list.map((item) => (
@@ -60,7 +58,6 @@ const List = (props) => (
   </ul>
 );
 
-// make each item a component
 const Item = (props) => (
   <li>
     <span>
