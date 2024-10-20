@@ -54,10 +54,10 @@ const App = () => {
 };
 
 const Search = ({ initialValue, onSearch }) => (
-  <div>
+  <>
     <label htmlFor="search">Search: </label>
     <input id="search" type="text" value={initialValue} onChange={onSearch} />
-  </div>
+  </>
 );
 
 const List = ({ list }) => (
